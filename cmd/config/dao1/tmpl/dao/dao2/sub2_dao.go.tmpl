@@ -1,0 +1,3 @@
+func (d *Dao) CreateCouponGetFlow(ctx context.Context, info model.{{ .name }}) error {
+	return d.coupon.Master(ctx).Table((&model.{{ .name }}{}).TableName()).Omit("create_time", "update_time").Create(&info).Error
+}

@@ -1,0 +1,23 @@
+// Create{{ .name }} godoc
+// @summary 创建模版券
+// @description 创建模版券
+// @tags client
+// @param uid query uint64 true "用户id"
+// @param req body model.Create{{ .name }}Req true "请求参数"
+// @router /api/coupon/mct/create_model_stock [post]
+// @success 200 {object} utils.WrapResp
+func Create{{ .name }}(c *httpserver.Context) {
+	req := model.Create{{ .name }}Req{}
+	atom := model.Atom{}
+	err := c.Bind(c.Request, &req, &atom)
+	if err != nil {
+		c.JSONAbort(nil, err)
+		return
+	}
+	err = svc.Create{{ .name }}(c.Ctx, req, atom)
+	if err != nil {
+		c.JSONAbort(nil, err)
+		return
+	}
+	c.JSON(nil, nil)
+}
