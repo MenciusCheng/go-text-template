@@ -1,0 +1,53 @@
+/* router.go */
+
+s.ANY("{{ .url }}", {{ .funcName }}) // {{ .name }}
+
+/* handler.go */
+
+// {{ .funcName }} godoc
+// @summary {{ .name }}
+// @description {{ .name }}
+// @tags {{ .tag }}
+{{- if IsInStringSlice "uid" .params }}
+// @param uid query uint64 true "用户id"
+{{- end }}
+// @param req {{ if eq .method "post" }}body{{ else }}query{{ end }} model.{{ .funcName }}Req true "请求参数"
+// @router {{ .url }} [{{ .method }}]
+// @success 200 {object} {{ if .haveResp }}model.{{ .funcName }}Resp{{ else }}interface{}{{ end }}
+func {{ .funcName }}(c *httpserver.Context) {
+	req := model.{{ .funcName }}Req{}
+	atom := model.Atom{}
+	err := c.Bind(c.Request, &req, &atom)
+	if err != nil {
+		c.JSONAbort(nil, err)
+		return
+	}
+
+	{{ if .haveResp }}resp, {{ end }}err := svc.{{ .funcName }}(c.Ctx, req, atom)
+	if err != nil {
+		c.JSONAbort(nil, err)
+		return
+	}
+
+	c.JSON({{ if .haveResp }}resp{{ else }}nil{{ end }}, nil)
+}
+
+/* model.go */
+
+type (
+    {{ .funcName }}Req struct {
+	}
+	{{- if .haveResp }}
+
+	{{ .funcName }}Resp struct {
+	}
+	{{- end }}
+)
+
+/* service.go */
+
+// {{ .name }}
+func (s *Service) {{ .funcName }}(ctx context.Context, req model.{{ .funcName }}Req, atom model.Atom) {{ if .haveResp }}(model.{{ .funcName }}Resp, error){{ else }}error{{ end }} {
+
+	return {{ if .haveResp }}model.{{ .funcName }}Resp{}, {{ end }}nil
+}

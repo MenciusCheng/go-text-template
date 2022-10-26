@@ -8,7 +8,7 @@ import (
 )
 
 func JsonMap(text string, data map[string]interface{}) (res string, err error) {
-	tmpl, err := template.New("").Parse(text)
+	tmpl, err := template.New("").Funcs(GetFuncMap()).Parse(text)
 	if err != nil {
 		return
 	}

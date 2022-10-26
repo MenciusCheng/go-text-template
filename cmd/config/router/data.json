@@ -1,0 +1,9 @@
+{
+  "name": "用户优惠券列表",
+  "url": "/api/coupon/user/list",
+  "funcName": "UserList",
+  "method": "post",
+  "tag": "client",
+  "haveResp": true,
+  "params":["uid"]
+}
