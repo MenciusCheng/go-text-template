@@ -1,9 +1,12 @@
 {
-  "name": "用户优惠券列表",
-  "url": "/api/coupon/user/list",
-  "funcName": "UserList",
+  "name": "提取平台券",
+  "url": "/inner/platform_ticket/extract",
+  "funcName": "ExtractPlatformTicket",
   "method": "post",
-  "tag": "client",
-  "haveResp": true,
-  "params":["uid"]
+  "__method": "get,post",
+  "tag": "admin",
+  "__tag": "client,admin,server",
+  "haveResp": false,
+  "params": [""],
+  "__params": "uid,atom"
 }

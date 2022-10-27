@@ -16,14 +16,16 @@ s.ANY("{{ .url }}", {{ .funcName }}) // {{ .name }}
 // @success 200 {object} {{ if .haveResp }}model.{{ .funcName }}Resp{{ else }}interface{}{{ end }}
 func {{ .funcName }}(c *httpserver.Context) {
 	req := model.{{ .funcName }}Req{}
+	{{- if IsInStringSlice "atom" .params }}
 	atom := model.Atom{}
-	err := c.Bind(c.Request, &req, &atom)
+	{{- end }}
+	err := c.Bind(c.Request, &req{{if IsInStringSlice "atom" .params }}, &atom{{ end }})
 	if err != nil {
 		c.JSONAbort(nil, err)
 		return
 	}
 
-	{{ if .haveResp }}resp, {{ end }}err := svc.{{ .funcName }}(c.Ctx, req, atom)
+	{{ IfElse .haveResp "resp, err :=" "err =" }} svc.{{ .funcName }}(c.Ctx, req{{if IsInStringSlice "atom" .params }}, atom{{ end }})
 	if err != nil {
 		c.JSONAbort(nil, err)
 		return
@@ -47,7 +49,7 @@ type (
 /* service.go */
 
 // {{ .name }}
-func (s *Service) {{ .funcName }}(ctx context.Context, req model.{{ .funcName }}Req, atom model.Atom) {{ if .haveResp }}(model.{{ .funcName }}Resp, error){{ else }}error{{ end }} {
+func (s *Service) {{ .funcName }}(ctx context.Context, req model.{{ .funcName }}Req{{if IsInStringSlice "atom" .params }}, atom model.Atom{{ end }}) {{ if .haveResp }}(model.{{ .funcName }}Resp, error){{ else }}error{{ end }} {
 
 	return {{ if .haveResp }}model.{{ .funcName }}Resp{}, {{ end }}nil
 }
