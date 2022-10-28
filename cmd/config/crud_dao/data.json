@@ -1,0 +1,28 @@
+{
+  "name": "用户平台券",
+  "model": "PlatformTicket",
+  "db": "coupon",
+  "isReturnID": false,
+  "getOne": [
+    {
+      "key": "ticketCode",
+      "type": "string"
+    }
+  ],
+  "updateOne": [
+    {
+      "key": "ticketCode",
+      "type": "string",
+      "fields": [
+        {
+          "key": "useStatus",
+          "type": "int"
+        },
+        {
+          "key": "consumeTime",
+          "type": "int64"
+        }
+      ]
+    }
+  ]
+}

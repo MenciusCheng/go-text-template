@@ -1,0 +1,44 @@
+{{- $js := . }}
+{{- if .isReturnID -}}
+// 创建{{ .name }}
+func (d *Dao) Create{{ .model }}(ctx context.Context, info model.{{ .model }}) (int64, error) {
+	err := d.{{ .db }}.Master(ctx).Table((&model.{{ .model }}{}).TableName()).Omit("create_time", "update_time").Create(&info).Error
+	if err != nil {
+        return 0, err
+    }
+    return info.ID, nil
+}
+{{- else }}
+// 创建{{ .name }}
+func (d *Dao) Create{{ .model }}(ctx context.Context, info model.{{ .model }}) error {
+	return d.{{ .db }}.Master(ctx).Table((&model.{{ .model }}{}).TableName()).Omit("create_time", "update_time").Create(&info).Error
+}
+{{- end }}
+
+{{- range .getOne }}
+
+// 根据{{ .key }}查询{{ $js.name }}
+func (d *Dao) Get{{ $js.model }}By{{ UpperFirst2 .key }}(ctx context.Context, {{ .key }} {{ .type }}) (info model.{{ $js.model }}, err error) {
+	err = d.{{ $js.db }}.Master(ctx).Table((&model.{{ $js.model }}{}).TableName()).
+		Where("{{ SnakeCase .key }} = ?", {{ .key }}).
+		First(&info).
+		Error
+	return info, err
+}
+{{- end }}
+
+{{- range .updateOne }}
+
+// 修改{{ $js.name }}
+func (d *Dao) Update{{ $js.model }}{{ range $i, $el := .fields }}{{ if (gt $i 0) }}And{{ end }}{{ UpperFirst .key }}{{ end }}By{{ UpperFirst2 .key }}(ctx context.Context, {{ .key }} {{ .type }}{{ range .fields }}, {{ .key }} {{ .type }}{{ end }}) error {
+	err := d.coupon.Master(ctx).Table((&model.{{ $js.model }}{}).TableName()).
+		Where("{{ SnakeCase .key }} = ?", {{ .key }}).
+		UpdateColumns(map[string]interface{}{
+		    {{- range .fields }}
+		    "{{ SnakeCase .key }}": {{ .key }},
+		    {{- end }}
+		}).
+		Error
+	return err
+}
+{{- end }}

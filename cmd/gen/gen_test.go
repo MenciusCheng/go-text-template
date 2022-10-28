@@ -11,9 +11,8 @@ func TestGenByDirConfig(t *testing.T) {
 		args    args
 		wantErr bool
 	}{
-		{
-			args: args{dirPath: "../config/router"},
-		},
+		{args: args{dirPath: "../config/crud_dao"}},
+		//{args: args{dirPath: "../config/router"}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

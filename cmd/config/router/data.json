@@ -1,12 +1,12 @@
 {
-  "name": "提取平台券",
-  "url": "/inner/platform_ticket/extract",
-  "funcName": "ExtractPlatformTicket",
+  "name": "用户兑换平台券",
+  "url": "/api/platform_ticket/user/draw",
+  "funcName": "UserDraw",
   "method": "post",
   "__method": "get,post",
-  "tag": "admin",
+  "tag": "client",
   "__tag": "client,admin,server",
-  "haveResp": false,
-  "params": [""],
+  "haveResp": true,
+  "params": ["uid","atom"],
   "__params": "uid,atom"
 }
