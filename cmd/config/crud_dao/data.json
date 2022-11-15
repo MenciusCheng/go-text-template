@@ -1,26 +1,22 @@
 {
-  "name": "用户平台券",
-  "model": "PlatformTicket",
-  "db": "coupon",
+  "name": "用户黑名单",
+  "model": "UserBlack",
+  "db": "db",
   "isReturnID": false,
   "getOne": [
     {
-      "key": "ticketCode",
-      "type": "string"
+      "key": "uid",
+      "type": "int64"
     }
   ],
   "updateOne": [
     {
-      "key": "ticketCode",
-      "type": "string",
+      "key": "uid",
+      "type": "int64",
       "fields": [
         {
-          "key": "useStatus",
+          "key": "isDelete",
           "type": "int"
-        },
-        {
-          "key": "consumeTime",
-          "type": "int64"
         }
       ]
     }

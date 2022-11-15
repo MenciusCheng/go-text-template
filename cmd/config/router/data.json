@@ -1,12 +1,12 @@
 {
-  "name": "用户兑换平台券",
-  "url": "/api/platform_ticket/user/draw",
-  "funcName": "UserDraw",
+  "name": "根据营地分组查询活动订单统计信息",
+  "url": "/inner/act_order/stats/group_by_camp",
+  "funcName": "GetActOrderStatsGroupByCamp",
   "method": "post",
   "__method": "get,post",
-  "tag": "client",
+  "tag": "server",
   "__tag": "client,admin,server",
   "haveResp": true,
-  "params": ["uid","atom"],
+  "params": ["",""],
   "__params": "uid,atom"
 }
