@@ -1,9 +1,11 @@
 package parse
 
 import (
+	"bytes"
 	"fmt"
 	"strings"
 	"text/template"
+	"unicode"
 )
 
 func GetFuncMap() template.FuncMap {
@@ -68,4 +70,26 @@ func SnakeCase(str string) string {
 		}
 	}
 	return sb.String()
+}
+
+func SnakeToCamel(s string) string {
+	var buf bytes.Buffer
+	upNext := false
+
+	for i, c := range s {
+		if i == 0 {
+			buf.WriteRune(unicode.ToUpper(c))
+		} else {
+			if c == '_' {
+				upNext = true
+			} else if upNext {
+				buf.WriteRune(unicode.ToUpper(c))
+				upNext = false
+			} else {
+				buf.WriteRune(c)
+			}
+		}
+	}
+
+	return buf.String()
 }
