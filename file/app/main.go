@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	textStr, err := ioutil.ReadFile("../json/hello.json")
+	textStr, err := ioutil.ReadFile("file/json/hello.json")
 	if err != nil {
 		panic(err)
 	}
@@ -17,7 +17,7 @@ func main() {
 		panic(err)
 	}
 
-	tmplStr, err := ioutil.ReadFile("../tmpl/hello.tmpl")
+	tmplStr, err := ioutil.ReadFile("file/tmpl/hello.tmpl")
 	if err != nil {
 		panic(err)
 	}
@@ -27,7 +27,7 @@ func main() {
 		panic(err)
 	}
 
-	err = ioutil.WriteFile("../out/hello.txt", []byte(res), fs.ModePerm)
+	err = ioutil.WriteFile("out/hello.txt", []byte(res), fs.ModePerm)
 	if err != nil {
 		panic(err)
 	}
