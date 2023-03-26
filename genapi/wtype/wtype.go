@@ -38,6 +38,27 @@ func (t *WType) initMap() {
 	t.BlocksByType = make(map[string][]*Block)
 }
 
+func (t *WType) CByID(s string) interface{} {
+	if t.BlockByID[s] == nil {
+		return nil
+	}
+	return t.BlockByID[s].Content
+}
+
+func (t *WType) CByName(s string) interface{} {
+	if t.BlockByName[s] == nil {
+		return nil
+	}
+	return t.BlockByName[s].Content
+}
+
+func (t *WType) CByType(s string) interface{} {
+	if t.BlockByType[s] == nil {
+		return nil
+	}
+	return t.BlockByType[s].Content
+}
+
 func NewWType() WType {
 	wt := WType{}
 	wt.initMap()

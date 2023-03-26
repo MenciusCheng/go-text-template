@@ -1,0 +1,15 @@
+@=name:dec,type:yaml
+name: Dog
+
+@=name:field,type:tabrow
+age	int	年龄
+name	string	名字
+remark	string	备注
+my_zoo	string	我的动物园
+
+@=name:reqTmpl,type:tmpl
+type {{ (.CByType "yaml").name }} struct {
+{{- range $row := (.CByName "field") }}
+    {{ SnakeToCamel (index $row 1) }} {{index $row 2}} `json:"{{index $row 1}}"` // {{index $row 3}}
+{{- end}}
+}
