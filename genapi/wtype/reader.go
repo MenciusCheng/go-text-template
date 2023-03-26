@@ -10,13 +10,13 @@ import (
 func ReadWTypeByStrList(strList ...string) WType {
 	wt := NewWType()
 	for _, str := range strList {
-		readWTypeByStr(&wt, str)
+		ReadWTypeByStr(&wt, str)
 	}
 	wt.GenMap()
 	return wt
 }
 
-func readWTypeByStr(wt *WType, str string) {
+func ReadWTypeByStr(wt *WType, str string, opts ...FormatFunc) {
 	// 读取块内容
 	bsc := DefaultBlockScanner()
 	scanner := bufio.NewScanner(strings.NewReader(str))
@@ -25,7 +25,7 @@ func readWTypeByStr(wt *WType, str string) {
 
 		if IsBlockDefLine(line) { // 块内容定义行
 			if bsc.Buffered {
-				wt.Blocks = append(wt.Blocks, bsc.ToBlock())
+				wt.Blocks = append(wt.Blocks, bsc.ToBlock(opts...))
 			}
 			bsc = NewBlockScanner(line)
 		} else {
@@ -33,8 +33,9 @@ func readWTypeByStr(wt *WType, str string) {
 		}
 	}
 	if bsc.Buffered {
-		wt.Blocks = append(wt.Blocks, bsc.ToBlock())
+		wt.Blocks = append(wt.Blocks, bsc.ToBlock(opts...))
 	}
+	wt.GenMap()
 }
 
 func ReadWTypeByStr2(str string) {

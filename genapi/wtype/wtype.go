@@ -1,5 +1,12 @@
 package wtype
 
+import (
+	"fmt"
+	"github.com/MenciusCheng/go-text-template/parse"
+	"strings"
+	"text/template"
+)
+
 type WType struct {
 	Blocks []Block `json:"blocks"`
 
@@ -11,6 +18,8 @@ type WType struct {
 }
 
 func (t *WType) GenMap() {
+	t.initMap()
+
 	for i := range t.Blocks {
 		v := &t.Blocks[i]
 		t.BlockByID[t.Blocks[i].Def.ID] = v
@@ -21,12 +30,42 @@ func (t *WType) GenMap() {
 	}
 }
 
+func (t *WType) initMap() {
+	t.BlockByID = make(map[string]*Block)
+	t.BlockByName = make(map[string]*Block)
+	t.BlockByType = make(map[string]*Block)
+	t.BlocksByName = make(map[string][]*Block)
+	t.BlocksByType = make(map[string][]*Block)
+}
+
 func NewWType() WType {
-	return WType{
-		BlockByID:    make(map[string]*Block),
-		BlockByName:  make(map[string]*Block),
-		BlockByType:  make(map[string]*Block),
-		BlocksByName: make(map[string][]*Block),
-		BlocksByType: make(map[string][]*Block),
+	wt := WType{}
+	wt.initMap()
+	return wt
+}
+
+func (t *WType) GenByTmpl() string {
+	block, ok := t.BlockByType[TextTypeTmpl]
+	if !ok {
+		return ""
 	}
+
+	tplStr, ok := block.Content.(string)
+	if !ok {
+		return ""
+	}
+
+	tpl, err := template.New("").Funcs(parse.GetFuncMap()).Parse(tplStr)
+	if err != nil {
+		fmt.Printf("error: %v\n", err)
+		return ""
+	}
+
+	sb := strings.Builder{}
+	err = tpl.Execute(&sb, t)
+	if err != nil {
+		fmt.Printf("error: %v\n", err)
+		return ""
+	}
+	return sb.String()
 }

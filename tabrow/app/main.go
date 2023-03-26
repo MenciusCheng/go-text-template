@@ -5,5 +5,6 @@ import (
 )
 
 func main() {
-	job.FixKuaishou()
+	job.Kuaishou()
+	//job.FixKuaishou()
 }

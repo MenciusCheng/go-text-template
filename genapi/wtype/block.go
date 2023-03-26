@@ -10,9 +10,15 @@ import (
 
 // 内容块
 type Block struct {
-	Def     BlockDef    `json:"def"`     // 格式定义
-	Lines   []string    `json:"lines"`   // 读取的每一行内容
-	Content interface{} `json:"content"` // 解析后的内容
+	Def         BlockDef    `json:"def"`     // 格式定义
+	Lines       []string    `json:"lines"`   // 读取的每一行内容
+	Content     interface{} `json:"content"` // 解析后的内容
+	Format      interface{} `json:"format"`  // 处理后的内容
+	FormatAfter FormatFunc  `json:"-"`       // 格式化之后执行
+}
+
+func (s *Block) String() string {
+	return strings.Join(s.Lines, "\n")
 }
 
 type BlockDef struct {
@@ -34,11 +40,9 @@ func (s *BlockScanner) ReadLine(line string) {
 	s.Lines = append(s.Lines, line)
 }
 
-func (s *BlockScanner) String() string {
-	return strings.Join(s.Lines, "\n")
-}
+type FormatFunc func(b *Block)
 
-func (s *BlockScanner) ToBlock() Block {
+func (s *BlockScanner) ToBlock(opts ...FormatFunc) Block {
 	if !s.Buffered {
 		return Block{}
 	}
@@ -48,28 +52,36 @@ func (s *BlockScanner) ToBlock() Block {
 		Lines: s.Lines,
 	}
 
-	switch strings.ToLower(s.Def.TextType) {
+	for _, opt := range opts {
+		opt(&block)
+	}
+
+	switch strings.ToLower(block.Def.TextType) {
 	case TextTypeText:
-		block.Content = s.String()
+		block.Content = block.String()
 	case TextTypeTabrow:
-		str := strings.TrimSpace(s.String())
+		str := strings.TrimSpace(block.String())
 		block.Content = ParseToTabrow(str)
 	case TextTypeJson:
 		content := make(map[string]interface{})
-		err := json.Unmarshal([]byte(s.String()), &content)
+		err := json.Unmarshal([]byte(block.String()), &content)
 		if err != nil {
 			panic(err)
 		}
 		block.Content = content
 	case TextTypeYaml:
 		content := make(map[string]interface{})
-		err := yaml.Unmarshal([]byte(s.String()), &content)
+		err := yaml.Unmarshal([]byte(block.String()), &content)
 		if err != nil {
 			panic(err)
 		}
 		block.Content = content
 	case TextTypeTmpl:
-		block.Content = s.String()
+		block.Content = block.String()
+	}
+
+	if block.FormatAfter != nil {
+		block.FormatAfter(&block)
 	}
 
 	return block
