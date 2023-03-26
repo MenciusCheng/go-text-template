@@ -16,6 +16,7 @@ func GetFuncMap() template.FuncMap {
 		"UpperFirst2":     UpperFirst2,
 		"LowerFirst":      LowerFirst,
 		"SnakeCase":       SnakeCase,
+		"SnakeToCamel":    SnakeToCamel,
 	}
 }
 

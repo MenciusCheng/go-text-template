@@ -1,0 +1,16 @@
+@=name:reqTmpl,type:tmpl
+{{- $dec1 := .BlockByID.dec1.Content }}
+{{- $request := .BlockByName.request.Content }}
+const tokenURL = "{{ $dec1.url }}"
+
+type getTokenRequest struct {
+{{- range $id, $row := $request }}
+    {{index $row 1}} {{index $row 2}} `json:"{{index $row 1}}"` // {{index $row 3}}
+{{- end }}
+}
+
+type getTokenResponse struct {
+	Code    int                 `json:"code"`
+	Message string              `json:"message"`
+	Data    getTokenResponseData `json:"data"`
+}

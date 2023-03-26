@@ -1,0 +1,39 @@
+@=id:dec1,name:dec,type:yaml
+name: 获取 token
+url: https://ad.e.kuaishou.com/rest/openapi/oauth2/authorize/access_token
+
+@=name:request,type:tabrow
+app_id	long	申请应用后快手返回的 app_id
+secret	string	申请应用后快手返回的 secret
+auth_code	string	授权时返回的 auth_code
+
+@=name:response,type:tabrow
+code	int	返回码
+message	string	返回信息
+data	struct
+access_token	string	用于验证权限的 token
+access_token_expires_in	long	access_token 剩余有效时间，单位：秒
+refresh_token	string	用于获取新的 access_token 和 refresh_token，并且刷新过期时间
+refresh_token_expires_in	long	refresh_token 剩余有效时间，单位：秒
+advertiser_id	long	广告主 ID
+advertiser_ids	long[]	已授权账户所有的 account_id
+
+@=name:reqJson,type:json
+{
+"app_id": 1,
+"secret": "abcd",
+"auth_code": "5991a7e2a6c7933b93"
+}
+
+@=name:respJson,type:json
+{
+"code": 0,
+"message": "OK",
+"data": {
+"access_token":"xxxxxxxxx",
+"refresh_token_expires_in":22,
+"refresh_token":"xxxxxxxxx",
+"access_token_expires_in":11,
+"advertiser_id": 33
+        }
+}
