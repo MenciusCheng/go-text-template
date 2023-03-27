@@ -59,6 +59,10 @@ func (t *WType) CByType(s string) interface{} {
 	return t.BlockByType[s].Content
 }
 
+func (t *WType) ReadWTypeByStr(str string, opts ...FormatFunc) {
+	ReadWTypeByStr(t, str, opts...)
+}
+
 func NewWType() WType {
 	wt := WType{}
 	wt.initMap()

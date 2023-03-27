@@ -1,0 +1,6 @@
+advertiser_id	long	广告主 ID（注：非账户快手 ID），在获取 accessToken 时返回
+start_date	string	过滤筛选条件，格式 yyyy-MM-dd
+end_date	string	过滤筛选条件，格式 yyyy-MM-dd
+temporal_granularity	string	天粒度（DAILY）／小时粒度（HOURLY），默认支持天粒度数据
+page	int	请求的页码，默认为 1
+page_size	int	每页行数，默认为 20，最大支持 2000

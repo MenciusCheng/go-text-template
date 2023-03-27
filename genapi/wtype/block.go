@@ -63,12 +63,24 @@ func (s *BlockScanner) ToBlock(opts ...FormatFunc) Block {
 		str := strings.TrimSpace(block.String())
 		block.Content = ParseToTabrow(str)
 	case TextTypeJson:
-		content := make(map[string]interface{})
-		err := json.Unmarshal([]byte(block.String()), &content)
-		if err != nil {
-			panic(err)
+		str := strings.TrimSpace(block.String())
+		if len(str) > 2 && str[0] == '[' {
+			// 数组JSON
+			content := make([]map[string]interface{}, 0)
+			err := json.Unmarshal([]byte(block.String()), &content)
+			if err != nil {
+				panic(err)
+			}
+			block.Content = content
+		} else {
+			// 对象JSON
+			content := make(map[string]interface{})
+			err := json.Unmarshal([]byte(block.String()), &content)
+			if err != nil {
+				panic(err)
+			}
+			block.Content = content
 		}
-		block.Content = content
 	case TextTypeYaml:
 		content := make(map[string]interface{})
 		err := yaml.Unmarshal([]byte(block.String()), &content)
