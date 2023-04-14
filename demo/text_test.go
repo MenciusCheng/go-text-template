@@ -59,3 +59,7 @@ func TestTextAndSpaces(t *testing.T) {
 		})
 	}
 }
+
+func TestWrite(t *testing.T) {
+	Write()
+}

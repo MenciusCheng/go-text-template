@@ -1,0 +1,237 @@
+[
+  {
+    "name": "gift_atlas_not_give_num_2023",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "server_gift_atlas_rank_2023",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "lighten_defeat_user_num_2023",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "lighten_gift_sum_price_2023",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "live_max_give_player_id_2023",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "live_equal_user_num_2023",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "live_gift_num_2023",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "live_gift_id_2023",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "rare_gift_rank_2023",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "rare_gift_id_2023",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "first_defeat_user_num_2023",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "first_gain_gift_at_2023",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "first_gift_num_2023",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "first_give_player_id_2023",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "first_gift_id_2023",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "collect_gift_rank_2023",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "collect_gift_num_2023",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "collect_gift_type_rank_2023",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "collect_gift_type_num_2023",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "gift_wall_new_num_2023",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "gift_atlas_not_collected_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "exceed_user_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "long_gift_atlas_end_at",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "long_gift_atlas_id",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "gift_atlas_rank_all",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "gift_atlas_num_all",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "live_equal_user_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "live_gift_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "live_gift_id",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "rare_gift_rank",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "rare_gift_id",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "first_gain_gift_at",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "first_give_player_id",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "first_gift_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "first_gift_id",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "long_gift_atlas_start_at",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "memorial_gift_id",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "lighten_defeat_user_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "lighten_gift_sum_price",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "collect_gift_rank_all",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "collect_gift_num_all",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "collect_gift_type_rank_all",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "collect_gift_type_num_all",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "memorial_gain_gift_at",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "player_id",
+    "dataFormatType": 1,
+    "updateSwitch": false
+  },
+  {
+    "name": "created_time",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "updated_time",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  }
+]

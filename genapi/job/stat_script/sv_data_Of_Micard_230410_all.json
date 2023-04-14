@@ -1,0 +1,692 @@
+[
+  {
+    "name": "space_url",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "model_list",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "level",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "clan_title",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "user_title",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "fullserve_num",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "fullserve_gold",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "fullserve_icon",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "fullserve_name",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "fullserve_id",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "fullserve_allnum",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "vindicate_num",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "vindicate_gold",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "vindicate_icon",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "vindicate_name",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "vindicate_id",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "vindicate_allnum",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "headlines_num",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "headlines_gold",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "headlines_icon",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "headlines_name",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "headlines_id",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "headlines_allnum",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "special_userid",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "special_giftid",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "giftmost_icon",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "giftmost_gold",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "giftmost_name",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "giftmost_id",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "gift_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "medal_rank",
+    "dataFormatType": 3,
+    "updateSwitch": true
+  },
+  {
+    "name": "memorymedal_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "glorymedal_icon",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "glorymedal_name",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "glorymedal_id",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "glorymedal_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "medal_is",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "getgiftmost_userid",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "getgiftmost_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "getgifttop_userid",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "getgifttop_gold",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "getgifttop_icon",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "getgifttop_name",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "getgifttop_id",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "getgift_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "im_idlist",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "sendgiftmost_userid",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "sendgiftmost_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "sendgifttop_userid",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "sendgifttop_gold",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "sendgifttop_icon",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "sendgifttop_name",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "sendgifttop_id",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "sendgift_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "sendgift_is",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "song_rank",
+    "dataFormatType": 3,
+    "updateSwitch": true
+  },
+  {
+    "name": "song_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "love_rank",
+    "dataFormatType": 3,
+    "updateSwitch": true
+  },
+  {
+    "name": "love_daynum",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "cat_rank",
+    "dataFormatType": 3,
+    "updateSwitch": true
+  },
+  {
+    "name": "cat_daynum",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "car_rank",
+    "dataFormatType": 3,
+    "updateSwitch": true
+  },
+  {
+    "name": "car_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "crazy_rank",
+    "dataFormatType": 3,
+    "updateSwitch": true
+  },
+  {
+    "name": "crazy_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "heart_rank",
+    "dataFormatType": 3,
+    "updateSwitch": true
+  },
+  {
+    "name": "heart_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "treasure_rank",
+    "dataFormatType": 3,
+    "updateSwitch": true
+  },
+  {
+    "name": "treasure_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "ufo_rank",
+    "dataFormatType": 3,
+    "updateSwitch": true
+  },
+  {
+    "name": "ufo_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "egg_rank",
+    "dataFormatType": 3,
+    "updateSwitch": true
+  },
+  {
+    "name": "egg_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "circle_name",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "circle_id",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "circle_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "dynamic_id",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "dynamic_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "playmusicday_date",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "playmusicday_playnum",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "playmusicday_releaseid",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "playmusicday_id",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "playmusictop_playnum",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "playmusictop_releaseid",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "playmusictop_id",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "playmusic_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "releasemusic_playid",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "releasemusic_id",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "releasemusic_playnum",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "releasemusic_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "releasemusic_is",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "clan_enddate",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "clan_startdate",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "clan_days",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "clan_name",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "clan_id",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "clan_is",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "im_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "im_id",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "concern_id",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "concern_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "fans_id",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "getfans_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "intimacy_days",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "intimacy_type",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "intimacy_id",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "intimacy_giftname",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "intimacy_icon",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "intimacy_giftid",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "untie_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "intimacy_is",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "activemost_duration",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "activemost_date",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "reg_days",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "active_date",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "reg_date",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "user_id",
+    "dataFormatType": 1,
+    "updateSwitch": false
+  },
+  {
+    "name": "server",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "create_at",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "releasemusic_name",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "releasemusic_url",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "playmusictop_name",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "playmusictop_url",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "playmusicday_name",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "playmusicday_url",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "user_name",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "user_image",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "user_sex",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "wealthlevel",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "charmlevel",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "intimacy_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "circle_image",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "model_image",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "dynamic_share_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "dynamic_like_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "dynamic_comment_num",
+    "dataFormatType": 1,
+    "updateSwitch": true
+  },
+  {
+    "name": "user_id2",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  },
+  {
+    "name": "clan_title_image",
+    "dataFormatType": 2,
+    "updateSwitch": true
+  }
+]

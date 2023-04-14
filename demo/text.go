@@ -43,3 +43,29 @@ func ParseMap(text string, data map[string]interface{}) (res string, err error) 
 func TextAndSpaces(text string) (string, error) {
 	return ParseMap(text, nil)
 }
+
+func Write() {
+	test := []string{
+		"1111111111111\n",
+		"1111111111111\n",
+		"1111111111111\n",
+		"1111111111111\n",
+		"1111111111111\n",
+		"1111111111111\n",
+	}
+
+	// 追加写入
+	file, err := os.OpenFile("out.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+
+	for _, item := range test {
+		_, err = file.Write([]byte(item))
+		if err != nil {
+			panic(err)
+		}
+	}
+
+}
