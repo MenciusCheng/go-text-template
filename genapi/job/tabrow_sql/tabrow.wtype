@@ -1,0 +1,22 @@
+@=name:field,type:tabrow
+sg_qume
+sg_miya
+sg_technical_monitor
+sg_mecord
+sg_miko
+sg_yesdesk
+sg_miya
+sg_qume
+breathing
+@=name:reqTmpl,type:tmpl
+{{- range $row := (.CByName "field") }}
+alter table platform_stat_ad_plan_rule_{{index $row 0}}
+    ADD `rule_strategy_type` int(11) NOT NULL DEFAULT '1' COMMENT '策略类型，1计划策略，2账户策略',
+    MODIFY COLUMN `rule_type` int(11) NOT NULL DEFAULT 1 COMMENT '规则应用类型（已废弃）',
+    ADD COLUMN `rule_type_list` json NULL COMMENT '规则应用类型列表';
+{{- end}}
+
+-- 初始化规则应用类型列表字段
+{{- range $row := (.CByName "field") }}
+UPDATE platform_stat_ad_plan_rule_{{index $row 0}} SET `rule_type_list` = CONCAT('[', `rule_type`, ']') WHERE `rule_type_list` is null;
+{{- end}}
