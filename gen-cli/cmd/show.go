@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/MenciusCheng/go-text-template/utils/fileutil"
 	"github.com/spf13/cobra"
+	"os"
 	"strconv"
 )
 
@@ -24,18 +25,18 @@ var showCmd = &cobra.Command{
 		fileLines, err := fileutil.ReadFileByLine(ShowConfig.File)
 		if err != nil {
 			fmt.Println("read file error", err)
-			return
+			os.Exit(1)
 		}
 
 		line, err := strconv.Atoi(ShowConfig.Line)
 		if err != nil {
 			fmt.Println("Line error", err)
-			return
+			os.Exit(1)
 		}
 
 		if line <= 0 || line > len(fileLines) {
 			fmt.Println("wrong line", line)
-			return
+			os.Exit(1)
 		}
 
 		fmt.Println(fileLines[line-1])

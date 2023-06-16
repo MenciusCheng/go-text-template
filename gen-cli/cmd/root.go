@@ -2,21 +2,56 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/MenciusCheng/go-text-template/gen-cli/config"
+	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 	"os"
 )
 
-var Source string
+var cfgFile string
 
 func init() {
-	rootCmd.Flags().StringVarP(&Source, "source", "s", "", "Source directory to read from")
+	cobra.OnInitialize(initConfig)
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.gen-cli.yaml)")
+}
+
+func initConfig() {
+	// Don't forget to read config either from cfgFile or from home directory!
+	if cfgFile != "" {
+		// Use config file from the flag.
+		viper.SetConfigFile(cfgFile)
+	} else {
+		// Find home directory.
+		home, err := homedir.Dir()
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+
+		// Search config in home directory with name ".gen-cli" (without extension).
+		viper.AddConfigPath(home)
+		viper.SetConfigName(".gen-cli")
+	}
+
+	if err := viper.ReadInConfig(); err != nil {
+		fmt.Println("Can't read config:", err)
+		os.Exit(1)
+	}
+
+	err := viper.Unmarshal(&config.Config)
+	if err != nil {
+		fmt.Println("unable to decode into struct", err)
+		os.Exit(1)
+	}
 }
 
 var rootCmd = &cobra.Command{
-	Use:   "gencli",
-	Short: "gencli is a very nice generator",
+	Use:   "gen-cli",
+	Short: "gen-cli is a very nice generator",
 	Run: func(cmd *cobra.Command, args []string) {
 		// Do Stuff Here
+		fmt.Println("hello gen-cli")
 	},
 }
 

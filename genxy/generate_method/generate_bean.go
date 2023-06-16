@@ -47,7 +47,7 @@ func init() {
 
 var (
 	generateControllerTableMap = map[string]TableConfig{
-		`checking_strategy`: {},
+		`voice_stream_channel_record`: {},
 	}
 
 	generateDaoTableNotAutoIncrMap = map[string]struct{}{
@@ -66,35 +66,28 @@ func Run() {
 	)
 
 	DbParam1.TableNameLike = map[string]TableConfig{
-		"checking_strategy": {
+		"voice_stream_channel_record": {
 			Type:    "",
 			Ordinal: 0,
 		},
-		"checking_strategy_channel": {
-			Type:    "",
-			Ordinal: 0,
-		},
-		"checking_strategy_history": {
-			Type:    "",
-			Ordinal: 0,
-		},
-		//"%voice_stream_block_record": {
-		//	Type:    "",
-		//	Ordinal: 0,
-		//},
 	}
 
 	DbParam1.TableSchema = []string{
-		"ai",
+		"ai_aut",
 	}
+
+	DbParam1.Host = ""
+	DbParam1.Port = ""
+	DbParam1.User = ""
+	DbParam1.Password = ""
 
 	beans := GetBeans(DbParam1)
 
 	config := Config{
 		BeanDir: "/Users/a123456/xinyu/zhi_dun/src/dbbean/",
-		//DaoDir:        "/Users/a123456/xinyu/zhi_dun/src/dbdao/",
-		//ControllerDir: "/Users/a123456/xinyu/zhi_dun/src/dbcontroller/",
-		//ServiceDir:    "/Users/a123456/xinyu/zhi_dun/src/dbservice/",
+		//DaoDir:  "/Users/a123456/xinyu/zhi_dun/src/dbdao/",
+		ControllerDir: "/Users/a123456/xinyu/zhi_dun/src/dbcontroller/",
+		ServiceDir:    "/Users/a123456/xinyu/zhi_dun/src/dbservice/",
 
 		//IsCoverController: true,
 		IsCoverController: false,
