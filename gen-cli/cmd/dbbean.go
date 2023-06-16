@@ -6,17 +6,22 @@ import (
 	"github.com/MenciusCheng/go-text-template/genxy/generate_method"
 	"github.com/spf13/cobra"
 	"os"
+	"os/exec"
+	"strings"
 )
 
 var table string
 var db string
+var patterns string
 
 func init() {
 	dbbeanCmd.Flags().StringVarP(&table, "table", "t", "", "table name")
 	dbbeanCmd.MarkFlagRequired("table")
 
-	dbbeanCmd.Flags().StringVar(&db, "db", "", "db name")
+	dbbeanCmd.Flags().StringVarP(&db, "db", "d", "", "db name")
 	dbbeanCmd.MarkFlagRequired("db")
+
+	dbbeanCmd.Flags().StringVarP(&patterns, "patterns", "p", "", "more patterns")
 
 	rootCmd.AddCommand(dbbeanCmd)
 }
@@ -24,9 +29,14 @@ func init() {
 var dbbeanCmd = &cobra.Command{
 	Use:   "dbbean",
 	Short: "",
-	Args:  cobra.MinimumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		fileName := args[0]
+		beanDir := ""
+		if len(args) > 0 {
+			beanDir = args[0]
+			if beanDir[len(beanDir)-1] != '/' || beanDir[len(beanDir)-1] != '\\' {
+				beanDir = fmt.Sprintf("%s%c", beanDir, os.PathSeparator)
+			}
+		}
 
 		database := config.GetDatabaseByDb(db)
 		if database == nil {
@@ -45,7 +55,29 @@ var dbbeanCmd = &cobra.Command{
 			TableSchema: []string{db},
 		})
 
-		fmt.Printf("fileName: %s", fileName)
-		fmt.Printf("beans: %+v", beans)
+		generate_method.WriteBean(beans, &generate_method.Config{
+			BeanDir: beanDir,
+		})
+		beanFile := fmt.Sprintf("%s%s_generate.go", beanDir, table)
+		if err := exec.Command("go", "fmt", beanFile).Run(); err != nil {
+			fmt.Println("go fmt err", err)
+			os.Exit(1)
+		}
+
+		ps := strings.Split(patterns, ",")
+		for _, item := range ps {
+			switch item {
+			case "dao":
+				daoDir := fmt.Sprintf("%s..%cdbdao%c", beanDir, os.PathSeparator, os.PathSeparator)
+				generate_method.WriteDaoOneTableProjectId(beans, &generate_method.Config{
+					DaoDir: daoDir,
+				})
+				daoFile := fmt.Sprintf("%s%s_dao_generate.go", daoDir, table)
+				if err := exec.Command("go", "fmt", daoFile).Run(); err != nil {
+					fmt.Println("go fmt err", err)
+					os.Exit(1)
+				}
+			}
+		}
 	},
 }
