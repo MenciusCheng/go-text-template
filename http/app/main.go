@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/MenciusCheng/go-text-template/parse"
 	"net/http"
+	_ "net/http/pprof"
 )
 
 type GenObj struct {
