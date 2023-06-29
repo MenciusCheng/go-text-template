@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/MenciusCheng/go-text-template/parse"
 	"net/http"
+	"net/http/pprof"
 	_ "net/http/pprof"
 )
 
@@ -41,10 +42,23 @@ func Ping(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/gen", genHandler)
-	http.HandleFunc("/ping", Ping)
+	go func() {
+		http.ListenAndServe(":6060", nil)
+	}()
 
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	mux := http.NewServeMux()
+	mux.HandleFunc("/gen", genHandler)
+	mux.HandleFunc("/ping", Ping)
+	InitPProf(mux)
+	if err := http.ListenAndServe(":8080", mux); err != nil {
 		panic(err)
 	}
+}
+
+func InitPProf(mux *http.ServeMux) {
+	mux.HandleFunc("/debug/pprof/", pprof.Index)
+	mux.HandleFunc("/debug/pprof/cmdline", pprof.Cmdline)
+	mux.HandleFunc("/debug/pprof/profile", pprof.Profile)
+	mux.HandleFunc("/debug/pprof/symbol", pprof.Symbol)
+	mux.HandleFunc("/debug/pprof/trace", pprof.Trace)
 }
