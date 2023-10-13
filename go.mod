@@ -1,6 +1,6 @@
 module github.com/MenciusCheng/go-text-template
 
-go 1.18
+go 1.21
 
 require (
 	github.com/jinzhu/gorm v1.9.16
