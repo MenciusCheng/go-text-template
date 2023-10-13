@@ -1,0 +1,35 @@
+@=name:ad,type:tabrow
+455092177
+
+2
+
+https://api.ads.heytapmobi.com/api/uploadActiveData
+
+111.19.93.185
+
+oaid1111
+
+455092182
+
+1
+
+https://api.ads.heytapmobi.com/api/uploadActiveData
+
+120.219.10.208
+
+oaid1111
+@=name:reqTmpl,type:tmpl
+{{- range $i, $row := (.CByName "ad") }}
+		{
+			args: args{
+				req: &model.ReportADReq{
+					IP:   "{{index $row 3}}",
+					OAID: "{{index $row 4}}",
+				},
+				adClickInfo: &model.ADClickInfo{
+					DID:         "{{index $row 0}}",
+					CallbackURL: "{{index $row 2}}",
+				},
+			},
+		},
+{{- end}}
