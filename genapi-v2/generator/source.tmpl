@@ -1,0 +1,3 @@
+{{- range $row := .rows }}
+f: {{ len (index $row 2) }}, {{ $row }}
+{{- end }}

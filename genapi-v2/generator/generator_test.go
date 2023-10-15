@@ -2,6 +2,7 @@ package generator
 
 import "testing"
 
+// 生成文本示例
 func TestGenerator_Exec(t *testing.T) {
 	g := NewGenerator(ParserTabRow)
 	// 文本解析
@@ -21,4 +22,27 @@ f: {{ len (index $row 2) }}, {{ $row }}
 
 	// 生成结果
 	t.Log(g.Exec())
+}
+
+// 从文件中生成文本示例
+func TestGenerator_Exec_FromFile(t *testing.T) {
+	g := NewGenerator(ParserTabRow)
+	// 文本解析
+	g.SourceFile("source.txt")
+	t.Log(g.JsonIndent())
+
+	// 模版添加
+	err := g.TempFile("source.tmpl")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	// 生成结果
+	t.Log(g.Exec())
+	err = g.ExecToFile("source.out")
+	if err != nil {
+		t.Error(err)
+		return
+	}
 }

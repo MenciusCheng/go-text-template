@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/MenciusCheng/go-text-template/parse"
+	"os"
 	"text/template"
 )
 
@@ -31,6 +32,20 @@ func (g *Generator) Source(text string) {
 	// 序列化为JSON后再反序列化成 map
 	data := MapToJsonToMap(oriData)
 	g.Data = data
+}
+
+// 从文件中读取文本
+func (g *Generator) SourceFile(filename string) {
+	g.Source(g.loadFile(filename))
+}
+
+func (g *Generator) loadFile(filename string) string {
+	b, err := os.ReadFile(filename)
+	if err != nil {
+		fmt.Println("ReadFile failed", err)
+		return ""
+	}
+	return string(b)
 }
 
 // 打印读取的文本Json
@@ -61,6 +76,11 @@ func (g *Generator) Temp(text string) error {
 	return nil
 }
 
+// 从文件中读取模版
+func (g *Generator) TempFile(filename string) error {
+	return g.Temp(g.loadFile(filename))
+}
+
 // 执行模版生成文本
 func (g *Generator) Exec() string {
 	var b bytes.Buffer
@@ -70,4 +90,20 @@ func (g *Generator) Exec() string {
 		return ""
 	}
 	return b.String()
+}
+
+// 执行模版生成文本至文件
+func (g *Generator) ExecToFile(filename string) error {
+	file, err := os.Create(filename)
+	if err != nil {
+		return err
+	}
+
+	err = g.Templater.Execute(file, g.Data)
+	if err != nil {
+		fmt.Println("Execute Error", err)
+		return err
+	}
+
+	return nil
 }
