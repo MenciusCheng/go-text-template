@@ -1,6 +1,10 @@
 package generator
 
-import "testing"
+import (
+	"github.com/MenciusCheng/go-text-template/parse"
+	"testing"
+	"text/template"
+)
 
 // 生成文本示例
 func TestGenerator_Exec(t *testing.T) {
@@ -32,7 +36,7 @@ func TestGenerator_Exec_FromFile(t *testing.T) {
 	t.Log(g.JsonIndent())
 
 	// 模版添加
-	err := g.TempFile("source.tmpl")
+	err := g.TempFile("source.tmpl", ConfigTemplate(template.New("").Funcs(parse.GetFuncMap())))
 	if err != nil {
 		t.Error(err)
 		return

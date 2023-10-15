@@ -13,20 +13,22 @@ import (
 //
 //	文本 => 解析器 => Data(Json Map) => 模版 => 结果
 type Generator struct {
-	Data      map[string]interface{}
-	Parser    func(text string) map[string]interface{}
-	Templater *template.Template
+	OriData  interface{}
+	Data     map[string]interface{} // OriData 序列化为JSON后，再反序列化成 Data
+	Parser   func(text string) map[string]interface{}
+	Template *template.Template
 }
 
 func NewGenerator(opts ...OptionFunc) *Generator {
-	g := &Generator{
-		Data:      make(map[string]interface{}),
-		Templater: template.New("").Funcs(parse.GetFuncMap()),
-	}
+	g := &Generator{}
 	for _, opt := range opts {
 		opt(g)
 	}
 	return g
+}
+
+func defaultTemplate() *template.Template {
+	return template.New("").Funcs(parse.GetFuncMap())
 }
 
 // 读取文本
@@ -36,9 +38,9 @@ func (g *Generator) Source(text string, opts ...OptionFunc) {
 	}
 
 	oriData := g.Parser(text)
+	g.OriData = oriData
 	// 序列化为JSON后再反序列化成 map
-	data := MapToJsonToMap(oriData)
-	g.Data = data
+	g.Data = MapToJsonToMap(oriData)
 }
 
 // 从文件中读取文本
@@ -74,24 +76,32 @@ func (g *Generator) JsonIndent() string {
 }
 
 // 读取模版
-func (g *Generator) Temp(text string) error {
-	t, err := g.Templater.Parse(text)
+func (g *Generator) Temp(text string, opts ...OptionFunc) error {
+	for _, opt := range opts {
+		opt(g)
+	}
+
+	if g.Template == nil {
+		g.Template = defaultTemplate()
+	}
+
+	t, err := g.Template.Parse(text)
 	if err != nil {
 		return err
 	}
-	g.Templater = t
+	g.Template = t
 	return nil
 }
 
 // 从文件中读取模版
-func (g *Generator) TempFile(filename string) error {
-	return g.Temp(g.loadFile(filename))
+func (g *Generator) TempFile(filename string, opts ...OptionFunc) error {
+	return g.Temp(g.loadFile(filename), opts...)
 }
 
 // 执行模版生成文本
 func (g *Generator) Exec() string {
 	var b bytes.Buffer
-	err := g.Templater.Execute(&b, g.Data)
+	err := g.Template.Execute(&b, g.Data)
 	if err != nil {
 		fmt.Println("Execute failed", err)
 		return ""
@@ -106,7 +116,7 @@ func (g *Generator) ExecToFile(filename string) error {
 		return err
 	}
 
-	err = g.Templater.Execute(file, g.Data)
+	err = g.Template.Execute(file, g.Data)
 	if err != nil {
 		fmt.Println("Execute Error", err)
 		return err
