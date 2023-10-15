@@ -4,7 +4,7 @@ import "testing"
 
 // 生成文本示例
 func TestGenerator_Exec(t *testing.T) {
-	g := NewGenerator(ParserTabRow)
+	g := NewGenerator(ConfigParser(ParserTabRow))
 	// 文本解析
 	g.Source(`1	2023-09-03 00:02:18	2023-09-03 00:02:18	天一说土被厂	http://nufp.ug/ovpqwbd	0
 2	2023-09-03 00:10:54	2023-09-03 00:16:33	革深圆划织	http://mbrjhu.eh/lvrpsxfl	25
@@ -26,9 +26,9 @@ f: {{ len (index $row 2) }}, {{ $row }}
 
 // 从文件中生成文本示例
 func TestGenerator_Exec_FromFile(t *testing.T) {
-	g := NewGenerator(ParserTabRow)
+	g := NewGenerator()
 	// 文本解析
-	g.SourceFile("source.txt")
+	g.SourceFile("source.txt", ConfigParser(ParserTabRow))
 	t.Log(g.JsonIndent())
 
 	// 模版添加

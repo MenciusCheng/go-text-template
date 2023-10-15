@@ -18,16 +18,23 @@ type Generator struct {
 	Templater *template.Template
 }
 
-func NewGenerator(parser func(text string) map[string]interface{}) *Generator {
-	return &Generator{
+func NewGenerator(opts ...OptionFunc) *Generator {
+	g := &Generator{
 		Data:      make(map[string]interface{}),
-		Parser:    parser,
 		Templater: template.New("").Funcs(parse.GetFuncMap()),
 	}
+	for _, opt := range opts {
+		opt(g)
+	}
+	return g
 }
 
 // 读取文本
-func (g *Generator) Source(text string) {
+func (g *Generator) Source(text string, opts ...OptionFunc) {
+	for _, opt := range opts {
+		opt(g)
+	}
+
 	oriData := g.Parser(text)
 	// 序列化为JSON后再反序列化成 map
 	data := MapToJsonToMap(oriData)
@@ -35,8 +42,8 @@ func (g *Generator) Source(text string) {
 }
 
 // 从文件中读取文本
-func (g *Generator) SourceFile(filename string) {
-	g.Source(g.loadFile(filename))
+func (g *Generator) SourceFile(filename string, opts ...OptionFunc) {
+	g.Source(g.loadFile(filename), opts...)
 }
 
 func (g *Generator) loadFile(filename string) string {
