@@ -50,3 +50,35 @@ func TestGenerator_Exec_FromFile(t *testing.T) {
 		return
 	}
 }
+
+// 行数分组
+func TestGenerator_Exec_GroupBy(t *testing.T) {
+	g := NewGenerator(ConfigParser(WithParserLineGroupByCount(4)))
+	// 文本解析
+	g.Source(`topic
+t_partition
+t_offset
+status
+stat_api_tracking_topic_beta
+4
+8296139
+重复xyreqid
+stat_api_tracking_topic_beta
+4
+8296140
+重复xyreqid
+`)
+	t.Log(g.JsonIndent())
+
+	// 模版添加
+	err := g.Temp(`{{- range $row := .rows }}
+[ {{ range $i, $col := . }}{{if gt $i 0}}, {{end}}{{$col}}{{end}} ]
+{{- end }}`)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	// 生成结果
+	t.Log(g.Exec())
+}

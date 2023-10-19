@@ -59,6 +59,38 @@ func ParserLineGroupBy(text string) map[string]interface{} {
 	return res
 }
 
+// 根据行数分组，自定义行数
+func WithParserLineGroupByCount(count int) func(text string) map[string]interface{} {
+	return func(text string) map[string]interface{} {
+		res := make(map[string]interface{})
+
+		rows := make([][]string, 0)
+		values := make([]string, 0)
+
+		lines := strings.Split(text, "\n")
+		for _, line := range lines {
+			// 清洗
+			lineData := strings.TrimSpace(line)
+			if len(lineData) == 0 {
+				continue
+			}
+
+			// 解析
+			values = append(values, lineData)
+			if len(values) >= count {
+				rows = append(rows, values)
+				values = make([]string, 0)
+			}
+		}
+		if len(values) >= count {
+			rows = append(rows, values)
+		}
+
+		res["rows"] = rows
+		return res
+	}
+}
+
 func ParserSQL(text string) map[string]interface{} {
 	res := make(map[string]interface{})
 
