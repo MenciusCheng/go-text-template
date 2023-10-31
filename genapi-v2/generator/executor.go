@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"github.com/MenciusCheng/go-text-template/parse"
 	"log"
+	"strings"
 	"text/template"
 )
 
@@ -48,5 +49,22 @@ func WithTempExecutor(t *template.Template) ExecutorFunc {
 			return ""
 		}
 		return b.String()
+	}
+}
+
+// 逐行格式化模板的执行器，注入格式化函数
+func WithLineExecutor(f func(data map[string]interface{}) func(line string) string) ExecutorFunc {
+	return func(data map[string]interface{}, tmplText string) string {
+		// 结合读取的数据生成格式化函数
+		format := f(data)
+
+		tmplLines := strings.Split(tmplText, "\n")
+		ds := make([]string, 0, len(tmplLines))
+		for _, tmplLine := range tmplLines {
+			// 逐行格式化模板数据
+			s := format(tmplLine)
+			ds = append(ds, s)
+		}
+		return strings.Join(ds, "\n")
 	}
 }

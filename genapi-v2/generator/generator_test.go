@@ -1,7 +1,10 @@
 package generator
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/MenciusCheng/go-text-template/parse"
+	"regexp"
 	"testing"
 	"text/template"
 )
@@ -32,11 +35,11 @@ f: {{ len (index $row 2) }}, {{ $row }}
 func TestGenerator_Exec_FromFile(t *testing.T) {
 	g := NewGenerator()
 	// 文本解析
-	g.SourceFile("source.txt", ConfigParser(ParserTabRow))
+	g.SourceFile("exec-tmpl-data/source.txt", ConfigParser(ParserTabRow))
 	t.Log(g.JsonIndent())
 
 	// 模版添加
-	err := g.TempFile("source.tmpl", ConfigExecutor(WithTempExecutor(template.New("").Funcs(parse.GetFuncMap()))))
+	err := g.TempFile("exec-tmpl-data/source.tmpl", ConfigExecutor(WithTempExecutor(template.New("").Funcs(parse.GetFuncMap()))))
 	if err != nil {
 		t.Error(err)
 		return
@@ -87,7 +90,7 @@ stat_api_tracking_topic_beta
 func TestGenerator_Exec_Json(t *testing.T) {
 	g := NewGenerator()
 	// 文本解析
-	g.SourceFile("source.json", ConfigParser(ParserJson))
+	g.SourceFile("exec-tmpl-data/source.json", ConfigParser(ParserJson))
 
 	// 模版添加
 	err := g.Temp(`
@@ -102,4 +105,54 @@ func TestGenerator_Exec_Json(t *testing.T) {
 
 	// 生成结果
 	t.Log(g.Exec())
+}
+
+func TestGenerator_LineExecutor(t *testing.T) {
+	g := NewGenerator()
+
+	// 文本解析
+	g.SourceFile("exec-line-data/source.txt", ConfigParser(WithParserTabRowBySep(" ")))
+
+	// 模版添加
+	err := g.TempFile("exec-line-data/source.tmpl")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	// 自定义执行器
+	executor := WithLineExecutor(func(data map[string]interface{}) func(line string) string {
+		remarkMap := make(map[string]string)
+		bs, _ := json.Marshal(data["rows"])
+		rows := make([][]string, 0)
+		_ = json.Unmarshal(bs, &rows)
+
+		for _, row := range rows {
+			if len(row) == 3 {
+				remarkMap[row[1]] = row[2]
+			} else if len(row) == 4 {
+				remarkMap[row[1]] = row[3]
+			}
+		}
+
+		reg := regexp.MustCompile(`json:"([a-zA-Z0-9_]+)"`)
+
+		return func(line string) string {
+			submatch := reg.FindStringSubmatch(line)
+			if len(submatch) < 2 {
+				return line
+			}
+			if v, ok := remarkMap[submatch[1]]; ok {
+				return fmt.Sprintf("%s // %s", line, v)
+			}
+			return line
+		}
+	})
+
+	// 生成结果
+	err = g.ExecToFile("source.out", ConfigExecutor(executor))
+	if err != nil {
+		t.Error(err)
+		return
+	}
 }

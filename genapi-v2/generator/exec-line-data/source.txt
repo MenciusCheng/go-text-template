@@ -1,0 +1,7 @@
+show_count 展示数量
+click_count 点击次数
+campaign_id int 计划id
+campaign_name string 计划名称
+unit_id int 单元id
+unit_name string 单元名称
+status int 1：有效，2：已暂停，3：已结束，4：已删除，5：未开始，6：预算超限，7：不在投放时段，8：已完成
