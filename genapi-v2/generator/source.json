@@ -1,0 +1,22 @@
+{
+  "result": {
+    "data": [
+      {
+        "campaign_id": 3826554,
+        "budget": 9999900,
+        "app_callup_count": 0,
+        "preview_status": 2,
+        "create_time": "2023-10-27 11:01:49",
+        "creative_name": "创意4",
+        "unit_id": 18392548,
+        "creative_type": "自定义创意"
+      }
+    ],
+    "total_count": 65,
+    "page": 1
+  },
+  "msg": "OK",
+  "code": 200,
+  "current_time": 1698645063257,
+  "status": "success"
+}

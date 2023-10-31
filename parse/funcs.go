@@ -10,13 +10,14 @@ import (
 
 func GetFuncMap() template.FuncMap {
 	return template.FuncMap{
-		"IsInStringSlice": IsInStringSlice,
-		"IfElse":          IfElse,
-		"UpperFirst":      UpperFirst,
-		"UpperFirst2":     UpperFirst2,
-		"LowerFirst":      LowerFirst,
-		"SnakeCase":       SnakeCase,
-		"SnakeToCamel":    SnakeToCamel,
+		"IsInStringSlice":  IsInStringSlice,
+		"IfElse":           IfElse,
+		"UpperFirst":       UpperFirst,
+		"UpperFirst2":      UpperFirst2,
+		"LowerFirst":       LowerFirst,
+		"SnakeCase":        SnakeCase,
+		"SnakeToCamel":     SnakeToCamel,
+		"FloatToIntString": FloatToIntString,
 	}
 }
 
@@ -93,4 +94,8 @@ func SnakeToCamel(s string) string {
 	}
 
 	return buf.String()
+}
+
+func FloatToIntString(f float64) string {
+	return fmt.Sprintf("%d", int(f))
 }

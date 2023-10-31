@@ -82,3 +82,24 @@ stat_api_tracking_topic_beta
 	// 生成结果
 	t.Log(g.Exec())
 }
+
+// 从Json中生成文本示例
+func TestGenerator_Exec_Json(t *testing.T) {
+	g := NewGenerator()
+	// 文本解析
+	g.SourceFile("source.json", ConfigParser(ParserJson))
+
+	// 模版添加
+	err := g.Temp(`
+{{- range $row := .result.data }}
+ {{ .creative_type }} {{ .creative_style }} {{ .unit_name }} {{ .create_time }} {{ FloatToIntString .unit_id }}
+{{- end }}
+`)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	// 生成结果
+	t.Log(g.Exec())
+}

@@ -1,7 +1,9 @@
 package generator
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
 	"regexp"
 	"strings"
 )
@@ -135,5 +137,14 @@ func ParserSQL(text string) map[string]interface{} {
 		}
 	}
 
+	return res
+}
+
+func ParserJson(text string) map[string]interface{} {
+	res := make(map[string]interface{})
+	err := json.Unmarshal([]byte(text), &res)
+	if err != nil {
+		log.Fatal(err)
+	}
 	return res
 }
