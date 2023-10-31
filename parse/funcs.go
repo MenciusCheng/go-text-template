@@ -2,6 +2,7 @@ package parse
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"strings"
 	"text/template"
@@ -10,14 +11,16 @@ import (
 
 func GetFuncMap() template.FuncMap {
 	return template.FuncMap{
-		"IsInStringSlice":  IsInStringSlice,
-		"IfElse":           IfElse,
-		"UpperFirst":       UpperFirst,
-		"UpperFirst2":      UpperFirst2,
-		"LowerFirst":       LowerFirst,
-		"SnakeCase":        SnakeCase,
-		"SnakeToCamel":     SnakeToCamel,
-		"FloatToIntString": FloatToIntString,
+		"IsInStringSlice":       IsInStringSlice,
+		"IfElse":                IfElse,
+		"UpperFirst":            UpperFirst,
+		"UpperFirst2":           UpperFirst2,
+		"LowerFirst":            LowerFirst,
+		"SnakeCase":             SnakeCase,
+		"SnakeToCamel":          SnakeToCamel,
+		"FloatToIntString":      FloatToIntString,
+		"InterfaceToString":     InterfaceToString,
+		"InterfaceToJsonString": InterfaceToJsonString,
 	}
 }
 
@@ -98,4 +101,15 @@ func SnakeToCamel(s string) string {
 
 func FloatToIntString(f float64) string {
 	return fmt.Sprintf("%d", int(f))
+}
+
+// 任意类型转字符串
+func InterfaceToString(v interface{}) string {
+	return fmt.Sprintf("%v", v)
+}
+
+// 任意类型转字符串，如果是字符类型，则会带有双引号
+func InterfaceToJsonString(v interface{}) string {
+	bs, _ := json.Marshal(v)
+	return string(bs)
 }
