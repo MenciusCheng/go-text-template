@@ -36,7 +36,7 @@ func TestGenerator_Exec_FromFile(t *testing.T) {
 	t.Log(g.JsonIndent())
 
 	// 模版添加
-	err := g.TempFile("source.tmpl", ConfigTemplate(template.New("").Funcs(parse.GetFuncMap())))
+	err := g.TempFile("source.tmpl", ConfigExecutor(WithTempExecutor(template.New("").Funcs(parse.GetFuncMap()))))
 	if err != nil {
 		t.Error(err)
 		return

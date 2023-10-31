@@ -1,7 +1,5 @@
 package generator
 
-import "text/template"
-
 type OptionFunc func(*Generator)
 
 func ConfigParser(parser func(text string) map[string]interface{}) OptionFunc {
@@ -10,8 +8,8 @@ func ConfigParser(parser func(text string) map[string]interface{}) OptionFunc {
 	}
 }
 
-func ConfigTemplate(tmpl *template.Template) OptionFunc {
+func ConfigExecutor(e ExecutorFunc) OptionFunc {
 	return func(g *Generator) {
-		g.Template = tmpl
+		g.Executor = e
 	}
 }

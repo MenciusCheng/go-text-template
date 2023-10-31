@@ -32,6 +32,33 @@ func ParserTabRow(text string) map[string]interface{} {
 	return res
 }
 
+// 按行和列分组，自定义列的分隔符
+func WithParserTabRowBySep(sep string) func(text string) map[string]interface{} {
+	return func(text string) map[string]interface{} {
+		res := make(map[string]interface{})
+
+		rows := make([][]string, 0)
+		lines := strings.Split(text, "\n")
+		for _, line := range lines {
+			// 清洗
+			lineData := strings.TrimSpace(line)
+			if len(lineData) == 0 {
+				continue
+			}
+
+			// 解析
+			cols := strings.Split(lineData, sep)
+			values := make([]string, 0)
+			values = append(values, lineData)
+			values = append(values, cols...)
+			rows = append(rows, values)
+		}
+
+		res["rows"] = rows
+		return res
+	}
+}
+
 func ParserLineGroupBy(text string) map[string]interface{} {
 	res := make(map[string]interface{})
 

@@ -1,34 +1,30 @@
 package generator
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/MenciusCheng/go-text-template/parse"
 	"os"
-	"text/template"
 )
 
 // Generator 生成器，路径如下：
 //
-//	文本 => 解析器 => Data(Json Map) => 模版 => 结果
+//	文本 => 解析器(Parser) => Data(Json Map) + 模板 => 执行器(Executor) => 结果
 type Generator struct {
-	OriData  interface{}
-	Data     map[string]interface{} // OriData 序列化为JSON后，再反序列化成 Data
-	Parser   func(text string) map[string]interface{}
-	Template *template.Template
+	OriData  interface{}                              // 解释器读取文本后生成的数据
+	Data     map[string]interface{}                   // OriData 序列化为JSON后，再反序列化成 Data
+	Parser   func(text string) map[string]interface{} // 解释器
+	TmplText string                                   // 模板
+	Executor ExecutorFunc                             // 执行器
 }
 
 func NewGenerator(opts ...OptionFunc) *Generator {
-	g := &Generator{}
+	g := &Generator{
+		Executor: TempExecutor,
+	}
 	for _, opt := range opts {
 		opt(g)
 	}
 	return g
-}
-
-func defaultTemplate() *template.Template {
-	return template.New("").Funcs(parse.GetFuncMap())
 }
 
 // 读取文本
@@ -57,6 +53,15 @@ func (g *Generator) loadFile(filename string) string {
 	return string(b)
 }
 
+func (g *Generator) writeFile(filename string, content string) error {
+	err := os.WriteFile(filename, []byte(content), 0644)
+	if err != nil {
+		fmt.Println("WriteFile failed", err)
+		return err
+	}
+	return nil
+}
+
 // 打印读取的文本Json
 func (g *Generator) Json() string {
 	dataJson, err := json.Marshal(g.Data)
@@ -81,15 +86,7 @@ func (g *Generator) Temp(text string, opts ...OptionFunc) error {
 		opt(g)
 	}
 
-	if g.Template == nil {
-		g.Template = defaultTemplate()
-	}
-
-	t, err := g.Template.Parse(text)
-	if err != nil {
-		return err
-	}
-	g.Template = t
+	g.TmplText = text
 	return nil
 }
 
@@ -99,28 +96,15 @@ func (g *Generator) TempFile(filename string, opts ...OptionFunc) error {
 }
 
 // 执行模版生成文本
-func (g *Generator) Exec() string {
-	var b bytes.Buffer
-	err := g.Template.Execute(&b, g.Data)
-	if err != nil {
-		fmt.Println("Execute failed", err)
-		return ""
+func (g *Generator) Exec(opts ...OptionFunc) string {
+	for _, opt := range opts {
+		opt(g)
 	}
-	return b.String()
+
+	return g.Executor(g.Data, g.TmplText)
 }
 
 // 执行模版生成文本至文件
-func (g *Generator) ExecToFile(filename string) error {
-	file, err := os.Create(filename)
-	if err != nil {
-		return err
-	}
-
-	err = g.Template.Execute(file, g.Data)
-	if err != nil {
-		fmt.Println("Execute Error", err)
-		return err
-	}
-
-	return nil
+func (g *Generator) ExecToFile(filename string, opts ...OptionFunc) error {
+	return g.writeFile(filename, g.Exec(opts...))
 }
