@@ -1,9 +1,12 @@
 package generator
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"os"
+	"path/filepath"
+	"time"
 )
 
 // Generator 生成器，路径如下：
@@ -107,4 +110,32 @@ func (g *Generator) Exec(opts ...OptionFunc) string {
 // 执行模版生成文本至文件
 func (g *Generator) ExecToFile(filename string, opts ...OptionFunc) error {
 	return g.writeFile(filename, g.Exec(opts...))
+}
+
+// 执行模版生成至详细日志
+func (g *Generator) ExecToDebugLog(opts ...OptionFunc) error {
+	// 创建目录
+	dir := filepath.Join(".", "out")
+	if err := os.MkdirAll(dir, os.ModePerm); err != nil {
+		return err
+	}
+
+	ts := time.Now().Format("20060102_150405")
+	filename := fmt.Sprintf("%s/%s.out", dir, ts)
+
+	var b bytes.Buffer
+
+	b.WriteString("====================data====================\n")
+	b.WriteString(g.JsonIndent())
+
+	b.WriteString("\n\n====================tmpl====================\n")
+	b.WriteString(g.TmplText)
+
+	b.WriteString("\n\n====================res====================\n")
+	res := g.Exec(opts...)
+	b.WriteString(res)
+
+	fmt.Println(res)
+
+	return g.writeFile(filename, b.String())
 }

@@ -20,7 +20,7 @@ func TestGenerator_Exec(t *testing.T) {
 
 	// 模版添加
 	err := g.Temp(`{{- range $row := .rows }}
-f: {{ len (index $row 2) }}, {{ $row }}
+{{ len (index $row 2) }}, {{ index $row 1 }}
 {{- end }}`)
 	if err != nil {
 		t.Error(err)
@@ -29,6 +29,31 @@ f: {{ len (index $row 2) }}, {{ $row }}
 
 	// 生成结果
 	t.Log(g.Exec())
+}
+
+// 生成 debug 模式
+func TestGenerator_Exec_Debug(t *testing.T) {
+	g := NewGenerator(ConfigParser(WithParserTabRowBySep("\t")))
+	// 文本解析
+	g.Source(`1	2023-09-03 00:02:18	2023-09-03 00:02:18	天一说土被厂	http://nufp.ug/ovpqwbd	0
+2	2023-09-03 00:10:54	2023-09-03 00:16:33	革深圆划织	http://mbrjhu.eh/lvrpsxfl	25
+31	2023-09-03 00:55:20	2023-09-03 00:55:20	工工想力人位	http://wcdywv.cy/mtfa	3`)
+
+	// 模版添加
+	err := g.Temp(`{{- range $row := .rows }}
+{{ len (index $row 2) }}, {{ index $row 1 }}
+{{- end }}`)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	// 生成结果
+	err = g.ExecToDebugLog()
+	if err != nil {
+		t.Error(err)
+		return
+	}
 }
 
 // 从文件中生成文本示例
