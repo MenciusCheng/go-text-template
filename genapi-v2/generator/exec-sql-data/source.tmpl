@@ -1,0 +1,5 @@
+type {{ SnakeToCamel .table  }}Model struct {
+{{- range $row := .rows }}
+    {{ SnakeToCamel .name }} {{ if eq .type "varchar" }}string{{ else if eq .type "tinyint" }}int32{{ else if eq .type "int" }}int64{{ else if eq .type "datetime" }}string{{ end }} `gorm:"column:{{ .name }}" json:"{{ LowerFirst (SnakeToCamel .name) }}"` // {{ .comment }}
+{{- end }}
+}

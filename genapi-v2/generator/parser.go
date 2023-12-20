@@ -123,7 +123,7 @@ func WithParserLineGroupByCount(count int) func(text string) map[string]interfac
 func ParserSQL(text string) map[string]interface{} {
 	res := make(map[string]interface{})
 
-	rows := make([][]string, 0)
+	rows := make([]interface{}, 0)
 
 	lines := strings.Split(text, "\n")
 	for _, line := range lines {
@@ -147,14 +147,25 @@ func ParserSQL(text string) map[string]interface{} {
 		case fieldReg.MatchString(lineData):
 			fmt.Println("filed:", lineData)
 			submatch := fieldReg.FindStringSubmatch(lineData)
-			if submatch[1] == "PRIMARY" {
+			fieldOrg := submatch[1]
+			if fieldOrg == "PRIMARY" {
 				continue
-			} else if submatch[1] == "UNIQUE" {
+			} else if fieldOrg == "UNIQUE" {
 				continue
 			}
+			fieldName := strings.Trim(fieldOrg, "`")
 
-			fieldName := strings.Trim(submatch[1], "`")
-			rows = append(rows, []string{fieldName})
+			fieldTypeReg := regexp.MustCompile(fmt.Sprintf("%s\\s+([a-zA-Z]+)", fieldOrg))
+			fieldType := fieldTypeReg.FindStringSubmatch(lineData)[1]
+
+			commentReg := regexp.MustCompile("COMMENT '(.+)'")
+			comment := commentReg.FindStringSubmatch(lineData)[1]
+
+			rows = append(rows, map[string]string{
+				"name":    fieldName,
+				"type":    fieldType,
+				"comment": comment,
+			})
 		case footReg.MatchString(lineData):
 			fmt.Println("foot:", lineData)
 			res["rows"] = rows

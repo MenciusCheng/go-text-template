@@ -181,3 +181,20 @@ func TestGenerator_LineExecutor(t *testing.T) {
 		return
 	}
 }
+
+// 从Sql中生成文本示例
+func TestGenerator_Exec_Sql(t *testing.T) {
+	g := NewGenerator()
+	// 文本解析
+	g.SourceFile("exec-sql-data/source.sql", ConfigParser(ParserSQL))
+
+	// 模版添加
+	err := g.TempFile("exec-sql-data/source.tmpl")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	// 生成结果
+	t.Log(g.Exec())
+}
