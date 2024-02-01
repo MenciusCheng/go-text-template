@@ -47,7 +47,7 @@ func init() {
 
 var (
 	generateControllerTableMap = map[string]TableConfig{
-		`voice_stream_channel_record`: {},
+		`voice_to_text_log`: {},
 	}
 
 	generateDaoTableNotAutoIncrMap = map[string]struct{}{
@@ -66,28 +66,28 @@ func Run() {
 	)
 
 	DbParam1.TableNameLike = map[string]TableConfig{
-		"voice_stream_channel_record": {
+		"voice_to_text_log": {
 			Type:    "",
 			Ordinal: 0,
 		},
 	}
 
 	DbParam1.TableSchema = []string{
-		"ai_aut",
+		"ai",
 	}
 
 	DbParam1.Host = ""
-	DbParam1.Port = ""
-	DbParam1.User = ""
+	DbParam1.Port = "13306"
+	DbParam1.User = "public"
 	DbParam1.Password = ""
 
 	beans := GetBeans(DbParam1)
 
 	config := Config{
-		BeanDir: "/Users/a123456/xinyu/zhi_dun/src/dbbean/",
-		//DaoDir:  "/Users/a123456/xinyu/zhi_dun/src/dbdao/",
-		ControllerDir: "/Users/a123456/xinyu/zhi_dun/src/dbcontroller/",
-		ServiceDir:    "/Users/a123456/xinyu/zhi_dun/src/dbservice/",
+		BeanDir:       "/Users/wei/dev/xinyu/zhi_dun/src/dbbean/",
+		DaoDir:        "/Users/wei/dev/xinyu/zhi_dun/src/dbdao/",
+		ControllerDir: "/Users/wei/dev/xinyu/zhi_dun/src/dbcontroller/",
+		ServiceDir:    "/Users/wei/dev/xinyu/zhi_dun/src/dbservice/",
 
 		//IsCoverController: true,
 		IsCoverController: false,
@@ -96,7 +96,7 @@ func Run() {
 	WriteBean(beans, &config)
 	WriteDaoOneTableProjectId(beans, &config)
 
-	WriteController(beans, &config)
+	//WriteController(beans, &config)
 	//WriteService(beans, &config)
 
 	//WriteControllerRegister(beans)
