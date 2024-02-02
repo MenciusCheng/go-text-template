@@ -11,9 +11,12 @@ import (
 
 var cfgFile string
 
+// 工作目录
+var workDir string
+
 func init() {
 	cobra.OnInitialize(initConfig)
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.gen-cli.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.gen-cli/config.yaml)")
 }
 
 func initConfig() {
@@ -28,10 +31,11 @@ func initConfig() {
 			fmt.Println(err)
 			os.Exit(1)
 		}
+		workDir = fmt.Sprintf("%s/.gen-cli", home)
 
 		// Search config in home directory with name ".gen-cli" (without extension).
-		viper.AddConfigPath(home)
-		viper.SetConfigName(".gen-cli")
+		viper.AddConfigPath(workDir)
+		viper.SetConfigName("config")
 	}
 
 	if err := viper.ReadInConfig(); err != nil {
