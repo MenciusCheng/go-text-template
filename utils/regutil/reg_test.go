@@ -17,6 +17,12 @@ func TestShowRegRes(t *testing.T) {
 	}{
 		{
 			args: args{
+				expr: `-\s+\[[-a-zA-Z0-9_ ]+]\(https://github.com/([-a-zA-Z0-9_ ]+)/([-a-zA-Z0-9_ ]+)\)`,
+				s:    "- [Uniqush-Push](https://github.com/uniqush/uniqush-push) ",
+			},
+		},
+		{
+			args: args{
 				expr: "p([a-z]+)e",
 				s:    "Golang regular expressions example",
 			},

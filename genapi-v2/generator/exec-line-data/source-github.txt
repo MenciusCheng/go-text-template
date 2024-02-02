@@ -1,0 +1,3 @@
+- [securecookie](https://github.com/chmike/securecookie) - Efficient secure cookie encoding/decoding.
+- [session](https://github.com/icza/session) - Go session management for web servers (including support for Google App Engine - GAE).
+- [sessions](https://github.com/adam-hanna/sessions) - Dead simple, highly performant, highly customizable sessions service for go http servers.

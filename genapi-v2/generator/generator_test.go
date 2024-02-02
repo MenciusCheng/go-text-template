@@ -132,6 +132,7 @@ func TestGenerator_Exec_Json(t *testing.T) {
 	t.Log(g.Exec())
 }
 
+// 自定义执行器-添加注释
 func TestGenerator_LineExecutor(t *testing.T) {
 	g := NewGenerator()
 
@@ -171,6 +172,39 @@ func TestGenerator_LineExecutor(t *testing.T) {
 				return fmt.Sprintf("%s // %s", line, v)
 			}
 			return line
+		}
+	})
+
+	// 生成结果
+	err = g.ExecToFile("source.out", ConfigExecutor(executor))
+	if err != nil {
+		t.Error(err)
+		return
+	}
+}
+
+// 自定义执行器-增加star数
+func TestGenerator_LineExecutor_github(t *testing.T) {
+	g := NewGenerator()
+
+	// 模版添加
+	err := g.TempFile("exec-line-data/source-github.txt")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	// 自定义执行器
+	executor := WithLineExecutor(func(data map[string]interface{}) func(line string) string {
+		reg := regexp.MustCompile(`-\s+\[[-a-zA-Z0-9_ ]+]\(https://github.com/([-a-zA-Z0-9_ ]+)/([-a-zA-Z0-9_ ]+)\)`)
+		return func(line string) string {
+			if !reg.MatchString(line) {
+				return line
+			}
+			submatch := reg.FindStringSubmatch(line)
+			addStr := fmt.Sprintf(" ![start](https://img.shields.io/github/stars/%s/%s.svg)", submatch[1], submatch[2])
+			submatchIndex := reg.FindStringSubmatchIndex(line)
+			return fmt.Sprintf("%s%s%s", line[:submatchIndex[1]], addStr, line[submatchIndex[1]:])
 		}
 	})
 
