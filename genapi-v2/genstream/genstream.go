@@ -178,3 +178,12 @@ func (g *GenStream) FilterBlank() *GenStream {
 		return false
 	})
 }
+
+func (g *GenStream) ReplaceAll(old, new string) *GenStream {
+	records := make([][]string, 0)
+	for _, item := range g.Data {
+		records = append(records, []string{strings.ReplaceAll(item[0], old, new)})
+	}
+	g.Data = records
+	return g
+}

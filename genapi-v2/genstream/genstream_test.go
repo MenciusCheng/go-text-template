@@ -112,3 +112,11 @@ stat_api_tracking_topic_beta
 {{- end }}`)
 	fmt.Printf("out:%s\n", out)
 }
+
+// 文本替换
+func TestGenerator_ReplaceAll(t *testing.T) {
+	g := NewGenStream()
+	g.ReadFile("sqltext/test.sql")
+	g.ReplaceAll("abc", "fgh")
+	g.WriteFile("sqltext/test.out")
+}
